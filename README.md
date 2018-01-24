@@ -1,5 +1,16 @@
 # CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
+
+### Model Documentation
+
+Everything starts in the main function. The simulator sends the car’s x,y,s,d,yaw and speed. There variables are then used to generate our waypoints. Another important point is that we are also getting information from the sensor fusion. At the beginning, I started to use getXY function that generated waypoints that were spaced at 0.45 meters. It has also being used to get the angle to maintain the tangential trajectory. This function greatly helped me to make my car stay in the lane. 
+Clearly, the next step for me was to create a polynomial of waypoints. I have used the car’s current positions from the previous points. So I had 2 coordinates, current and the previous. Then I have added 3 more waypoints so in total I had 5 points or “Anchor points”. All of the points have been shifted relative to the car’s local coordinates.
+These Anchor points have been used to fit the right polynomial. For this purpose, I have used the open source code, a spine fitting tool. So the polynomials are then passed (points) to the next_x_vals and next_y_vals vectors which are then passed to the simulator. This is the process of the waypoints generation and how the values are fed to the simulator.
+
+In order for the car to change the lanes if the vehicle in front is moving slowly, I have used the sensor fusion data. I have used the data to determine the safe lane transition and to determine the safe distance between the cars. This process was quite simple as we only had 3 lanes. If the car in front moves slowly, we shall detect if no vehicle on other lanes are present and at the safe distance from us, which enables our car to change the lane.
+
+Overall, the car behaved safely and no accidents occur for at least 2 miles. 
+
    
 ### Simulator.
 You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases).
